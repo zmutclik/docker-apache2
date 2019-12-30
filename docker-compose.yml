@@ -1,0 +1,58 @@
+version: '3'
+services:
+  webserver:
+    build:
+      context: ./bin/webserver
+    container_name: webserver
+    restart: always
+    ports:
+      - '80'
+      - '443'
+      - '631'
+    links:
+      - mydb
+      - phpmyadmin
+    volumes:
+      - './www:/var/www/html'
+      - './config/php/php.ini:/usr/local/etc/php/php.ini'
+      - './config/vhosts:/etc/apache2/sites-enabled'
+      - './config/apache2/ports.conf:/etc/apache2/ports.conf'
+      - './config/cups:/etc/cups'
+      - './logs/apache2:/var/log/apache2'
+      - './logs/cups:/var/log/cups'
+      - './driver:/root/driver'
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - SET_CONTAINER_TIMEZONE=true
+      - CONTAINER_TIMEZONE=Asia/Jakarta
+  mydb:
+    image: mariadb
+    container_name: database
+    user : "1000:1000"
+    restart: always
+    ports:
+      - '3306'
+    volumes:
+      - './config/mysqld:/etc/mysql/conf.d'
+      - './mysql:/var/lib/mysql'
+      - './logs/mysql:/var/log/mysql'
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - MYSQL_ROOT_PASSWORD=blackant
+      - SET_CONTAINER_TIMEZONE=true
+      - CONTAINER_TIMEZONE=Asia/Jakarta
+    command: mysqld --innodb-flush-method=littlesync --innodb-use-native-aio=OFF --log_bin=ON
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    links:
+      - mydb
+    environment:
+      PMA_HOST: mydb
+      PMA_PORT: 3306
+    ports:
+      - '80'
+    volumes:
+      - './phpmyadmin/sessions:/sessions'
