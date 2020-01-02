@@ -1,6 +1,6 @@
 SeMuT-Node.v2
 
-Apache2, MariaDB, Cups, ImageMagick and PhpMyAdmin
+Apache2, MariaDB, Cups and ImageMagick 
 
 
 <b>For start Docker-Compose</b> 
