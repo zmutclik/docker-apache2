@@ -4,6 +4,7 @@ services:
     build:
       context: ./bin/webserver
     container_name: webserver
+    hostname: webserver
     restart: always
     ports:
       - '80'
@@ -27,6 +28,7 @@ services:
   mydb:
     image: mariadb
     container_name: database
+    hostname: database
     user : "1000:1000"
     restart: always
     ports:
@@ -46,6 +48,7 @@ services:
   networks:
     ws_net:
       ipam:
+        name : macvlan66
         driver: macvlan
         driver_opts:
           parent: vmbr0
@@ -53,3 +56,13 @@ services:
          - subnet:   "192.168.66.0/24"
            gateway:  "192.168.66.1"
            ip_range: "192.168.66.0/24"
+    db_net:
+      ipam:
+        name : macvlan69
+        driver: macvlan
+        driver_opts:
+          parent: vmbr0
+        config:
+         - subnet:   "192.168.69.0/24"
+           gateway:  "192.168.69.1"
+           ip_range: "192.168.69.0/24"
