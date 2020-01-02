@@ -53,7 +53,7 @@
                         <div class="content">
                             <ul>
                                 <li><a href="http://<?php echo $_SERVER['HTTP_HOST']; ?>/phpinfo.php">phpinfo()</a></li>
-                                <li><a href="http://<?php echo $_SERVER['HTTP_HOST']; ?>:8080">phpMyAdmin</a></li>
+                                <li><a href="http://<?php echo $_SERVER['HTTP_HOST']; ?>:631">Cups</a></li>
                                 <li><a href="http://<?php echo $_SERVER['HTTP_HOST']; ?>/test_db.php">Test DB Connection</a></li>
                             </ul>
                         </div>
