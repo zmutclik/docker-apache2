@@ -1,10 +1,9 @@
-version: '3'
+version: '2'
 services:
   webserver:
     build:
       context: ./bin/webserver
-    container_name: webserver
-    hostname: webserver
+    container_name: ws
     restart: always
     ports:
       - '80'
@@ -23,12 +22,11 @@ services:
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
     networks:
-      ws_net:
+      macvlan66:
         ipv4_address: 192.168.66.2
   mydb:
     image: mariadb
-    container_name: database
-    hostname: database
+    container_name: db
     user : "1000:1000"
     restart: always
     ports:
@@ -43,26 +41,26 @@ services:
       - MYSQL_ROOT_PASSWORD=blackant
     command: mysqld --innodb-flush-method=littlesync --innodb-use-native-aio=OFF --log_bin=ON
     networks:
-      db_net:
+      macvlan69:
         ipv4_address: 192.168.69.2
-  networks:
-    ws_net:
-      ipam:
-        name : macvlan66
-        driver: macvlan
-        driver_opts:
-          parent: vmbr0
-        config:
-         - subnet:   "192.168.66.0/24"
-           gateway:  "192.168.66.1"
-           ip_range: "192.168.66.0/24"
-    db_net:
-      ipam:
-        name : macvlan69
-        driver: macvlan
-        driver_opts:
-          parent: vmbr0
-        config:
-         - subnet:   "192.168.69.0/24"
-           gateway:  "192.168.69.1"
-           ip_range: "192.168.69.0/24"
+networks:
+  macvlan66:
+    driver: macvlan
+    driver_opts:
+      com.docker.network.enable_ipv4: "true"
+      parent: eno1
+    ipam:
+      config:
+        - subnet: 192.168.66.0/24
+          ip-range: 192.168.66.0/24
+          gateway: 192.168.66.1
+  macvlan69:
+    driver: macvlan
+    driver_opts:
+      com.docker.network.enable_ipv4: "true"
+      parent: eno1.10
+    ipam:
+      config:
+        - subnet: 192.168.69.0/24
+          ip-range: 192.168.69.0/24
+          gateway: 192.168.69.1
