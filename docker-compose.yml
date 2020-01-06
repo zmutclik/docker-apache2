@@ -1,15 +1,15 @@
 version: '2'
 services:
-  webserver:
+  ws:
     build:
       context: ./bin/webserver
-    container_name: ws
+ #   container_name: ws
     restart: always
     ports:
       - '80'
       - '631'
     links:
-      - mydb
+      - db
     volumes:
       - './www:/var/www/html'
       - './config/php/php.ini:/usr/local/etc/php/php.ini'
@@ -24,9 +24,9 @@ services:
     networks:
       macvlan66:
         ipv4_address: 192.168.66.2
-  mydb:
+  db:
     image: mariadb
-    container_name: db
+ #   container_name: db
     user : "1000:1000"
     restart: always
     ports:
