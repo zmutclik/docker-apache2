@@ -45,22 +45,8 @@ services:
         ipv4_address: 192.168.69.2
 networks:
   macvlan66:
-    driver: macvlan
-    driver_opts:
-      com.docker.network.enable_ipv4: "true"
-      parent: eno1
-    ipam:
-      config:
-        - subnet: 192.168.66.0/24
-          ip-range: 192.168.66.0/24
-          gateway: 192.168.66.1
+    external:
+      name: macvlan66
   macvlan69:
-    driver: macvlan
-    driver_opts:
-      com.docker.network.enable_ipv4: "true"
-      parent: eno1.10
-    ipam:
-      config:
-        - subnet: 192.168.69.0/24
-          ip-range: 192.168.69.0/24
-          gateway: 192.168.69.1
+    external:
+      name: macvlan69
