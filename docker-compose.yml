@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   ws:
     build:
@@ -22,7 +22,7 @@ services:
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
     networks:
-      macvlan66:
+      macvlan1:
         ipv4_address: 192.168.66.2
   db:
     image: mariadb
@@ -41,12 +41,12 @@ services:
       - MYSQL_ROOT_PASSWORD=blackant
     command: mysqld --innodb-flush-method=littlesync --innodb-use-native-aio=OFF --log_bin=ON
     networks:
-      macvlan69:
+      macvlan2:
         ipv4_address: 192.168.69.2
 networks:
-  macvlan66:
+  macvlan1:
     external:
       name: macvlan66
-  macvlan69:
+  macvlan2:
     external:
       name: macvlan69
