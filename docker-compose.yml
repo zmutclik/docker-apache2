@@ -3,7 +3,7 @@ services:
   ws:
     build:
       context: ./bin/webserver
- #   container_name: ws
+    container_name: ws
     restart: always
     ports:
       - '80'
@@ -23,10 +23,10 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
     networks:
       macvlan1:
-        ipv4_address: 192.168.66.2
+        ipv4_address: 192.168.55.2
   db:
     image: mariadb
- #   container_name: db
+    container_name: db
     user : "1000:1000"
     restart: always
     ports:
@@ -42,7 +42,7 @@ services:
     command: mysqld --innodb-flush-method=littlesync --innodb-use-native-aio=OFF --log_bin=ON
     networks:
       macvlan2:
-        ipv4_address: 192.168.69.2
+        ipv4_address: 192.168.59.2
 networks:
   macvlan1:
     external:
