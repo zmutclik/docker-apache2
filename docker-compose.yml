@@ -1,7 +1,7 @@
 version: '2'
 services:
   ws:
-    image: zmutclik/node
+    image: zmutclik/node:latest
     container_name: ws
     restart: always
     ports:
