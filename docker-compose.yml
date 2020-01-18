@@ -1,15 +1,16 @@
-version: '3'
+version: '2'
 services:
   ws:
-    build:
-      context: ./bin/webserver
+    image: zmutclik/node
     container_name: ws
     restart: always
     ports:
       - '80'
       - '631'
     links:
-      - db
+      - mariadb
+    depends_on:
+      - mariadb
     volumes:
       - './www:/var/www/html'
       - './config/php/php.ini:/usr/local/etc/php/php.ini'
@@ -18,13 +19,12 @@ services:
       - './config/cups:/etc/cups'
       - './logs/apache2:/var/log/apache2'
       - './logs/cups:/var/log/cups'
-      - './driver:/root/driver'
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
     networks:
       macvlan1:
         ipv4_address: 192.168.55.2
-  db:
+  mariadb:
     image: mariadb
     container_name: db
     user : "1000:1000"
@@ -49,4 +49,4 @@ networks:
       name: macvlan66
   macvlan2:
     external:
-      name: macvlan69
+      name: macvlan66

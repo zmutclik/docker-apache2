@@ -31,7 +31,7 @@
                                 <li>PHP <?= phpversion(); ?></li>
                                 <li>
                                     <?php
-                                    $link = mysqli_connect("db", "root", "blackant", null);
+                                    $link = mysqli_connect("mariadb", "root", "blackant", null);
 
 /* check connection */
                                     if (mysqli_connect_errno()) {

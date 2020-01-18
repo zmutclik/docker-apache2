@@ -1,5 +1,5 @@
 <?php
-$link = mysqli_connect("db", "root", "blackant", null);
+$link = mysqli_connect("mariadb", "root", "blackant", null);
 
 if (!$link) {
     echo "Error: Unable to connect to MySQL." . PHP_EOL;
