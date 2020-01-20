@@ -14,6 +14,7 @@ services:
     volumes:
       - './www:/var/www/html'
       - './config/php/php.ini:/usr/local/etc/php/php.ini'
+      - './config/php/tzone.ini:/usr/local/etc/php/conf.d/tzone.ini'
       - './config/vhosts:/etc/apache2/sites-enabled'
       - './config/apache2/ports.conf:/etc/apache2/ports.conf'
       - './config/cups:/etc/cups'
@@ -49,4 +50,4 @@ networks:
       name: macvlan66
   macvlan2:
     external:
-      name: macvlan66
+      name: macvlan69
