@@ -47,7 +47,7 @@ services:
 networks:
   macvlan1:
     external:
-      name: macvlan66
+      name: macvlan55
   macvlan2:
     external:
-      name: macvlan69
+      name: macvlan59
